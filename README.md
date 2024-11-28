@@ -1,65 +1,53 @@
+# Next.js & NextUI Template
 
-![tw-banner](https://github.com/thirdweb-example/vite-starter/assets/57885104/cfe2164b-b50b-4d8e-aaaa-31331da2d647)
+This is a template for creating applications using Next.js 14 (app directory) and NextUI (v2).
 
-# vite-starter
+[Try it on CodeSandbox](https://githubbox.com/nextui-org/next-app-template)
 
-Starter template to build onchain applications with [thirdweb](https://thirdweb.com) and [vite](https://vitejs.dev/). 
+## Technologies Used
 
-## Features 
+- [Next.js 14](https://nextjs.org/docs/getting-started)
+- [NextUI v2](https://nextui.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Tailwind Variants](https://tailwind-variants.org)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [next-themes](https://github.com/pacocoursey/next-themes)
 
-- thirdweb & vite pre-installed and configured to reduce setup steps
-- ConnectButton to onboard users to your application
+## How to Use
 
-## Installation
+### Use the template with create-next-app
 
-Install the template using [thirdweb create](https://portal.thirdweb.com/cli/create)
-
-```bash
-  npx thirdweb create app --vite
-```
-
-## Environment Variables
-
-To run this project, you will need to add the following environment variables to your .env file:
-
-`CLIENT_ID`
-
-To learn how to create a client ID, refer to the [client documentation](https://portal.thirdweb.com/typescript/v5/client). 
-
-## Run locally
-
-Install dependencies
+To create a new project based on this template using `create-next-app`, run the following command:
 
 ```bash
-yarn
+npx create-next-app -e https://github.com/nextui-org/next-app-template
 ```
 
-Start development server
+### Install dependencies
+
+You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
 
 ```bash
-yarn dev
+npm install
 ```
 
-Create a production build
+### Run the development server
 
 ```bash
-yarn build
+npm run dev
 ```
 
-Preview the production build
+### Setup pnpm (optional)
+
+If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
 
 ```bash
-yarn preview
+public-hoist-pattern[]=*@nextui-org/*
 ```
 
-## Additional Resources
+After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
 
-- [Documentation](https://portal.thirdweb.com/typescript/v5)
-- [Templates](https://thirdweb.com/templates)
-- [YouTube](https://www.youtube.com/c/thirdweb)
-- [Blog](https://blog.thirdweb.com)
+## License
 
-## Need help?
-
-For help or feedback, please [visit our support site](https://thirdweb.com/support)
-# Thirdweb-Account-abstraction
+Licensed under the [MIT license](https://github.com/nextui-org/next-app-template/blob/main/LICENSE).
