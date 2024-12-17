@@ -6,18 +6,16 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol";
+import "@openzeppelin/contracts/utils/cryptography/EIP712.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol"; // Import ECDSA for signature recovery
-import "@openzeppelin/contracts/utils/Counters.sol"; // Import OpenZeppelin Counters library
 
 contract LazyMint is ERC721, ERC721URIStorage, ERC721Enumerable, Ownable, EIP712 {
     using ECDSA for bytes32;
-    using Counters for Counters.Counter; // Use the Counters library
 
     string private constant SIGN_DOMAIN = "IIIT SRICITY";
     string private constant SIGN_VERSION = "1";
     address public minter;
-    Counters.Counter private _tokenIdCounter; // Counter for token IDs
+    uint256 private _tokenIdCounter; // Manually manage the token ID counter
 
     mapping(string => bool) private _usedURIs; // Mapping to track used URIs
 
@@ -27,6 +25,7 @@ contract LazyMint is ERC721, ERC721URIStorage, ERC721Enumerable, Ownable, EIP712
         EIP712(SIGN_DOMAIN, SIGN_VERSION)
     {
         minter = _minter;
+        _tokenIdCounter = 1; // Initialize counter to 1 (or any desired starting value)
     }
 
     struct LazyMintVoucher {
@@ -59,8 +58,8 @@ contract LazyMint is ERC721, ERC721URIStorage, ERC721Enumerable, Ownable, EIP712
         require(minter == recover(voucher), "wrong signature");
         require(!_usedURIs[voucher.uri], "URI already used"); // Check if the URI has already been used
 
-        uint256 newTokenId = _tokenIdCounter.current(); // Get the current token ID
-        _tokenIdCounter.increment(); // Increment the token ID counter
+        uint256 newTokenId = _tokenIdCounter; // Get the current token ID
+        _tokenIdCounter++; // Manually increment the token ID
 
         _safeMint(to, newTokenId);
         _setTokenURI(newTokenId, voucher.uri);
@@ -72,7 +71,7 @@ contract LazyMint is ERC721, ERC721URIStorage, ERC721Enumerable, Ownable, EIP712
         super._increaseBalance(account, value);
     }
 
-       function _update(address to, uint256 tokenId, address auth)
+    function _update(address to, uint256 tokenId, address auth)
         internal
         virtual
         override(ERC721, ERC721Enumerable)
